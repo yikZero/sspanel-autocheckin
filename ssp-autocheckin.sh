@@ -144,7 +144,7 @@ send_message() {
 
     # 钉钉群机器人通知
     if [ "${DDBOT_TOKEN}" ]; then
-        echo -e "title=${TITLE}&msgtype=markdown&text=${log_text}" >${PUSH_TMP_PATH}
+        echo -e "msgtype=text&text=${log_text}" >${PUSH_TMP_PATH}
         push=$(curl -k -s --data-binary @${PUSH_TMP_PATH} "https://oapi.dingtalk.com/robot/send?access_token=${DDBOT_TOKEN}")
         push_code=$(echo ${push} | jq -r ".errcode" 2>&1)
         if [ "${push_code}" -eq 0 ]; then
