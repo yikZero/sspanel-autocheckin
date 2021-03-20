@@ -155,9 +155,7 @@ send_message() {
                          "text": ${log_text}
                      },
                         "isAtAll": false
-                    }
-                 }
-                  }')
+                    }')
         push_code=$(echo ${push} | jq -r ".errcode" 2>&1)
         if [ "${push_code}" -eq 0 ]; then
             echo -e "【钉钉机器人推送结果】: 成功\n"
