@@ -144,8 +144,20 @@ send_message() {
 
     # 钉钉群机器人通知
     if [ "${DDBOT_TOKEN}" ]; then
-        echo -e "msgtype=text&text=${log_text}" >${PUSH_TMP_PATH}
-        push=$(curl -k -s --data-binary @${PUSH_TMP_PATH} "https://oapi.dingtalk.com/robot/send?access_token=${DDBOT_TOKEN}")
+#         echo -e "title=${TITLE}&msgtype=markdown&text=${log_text}" >${PUSH_TMP_PATH}
+#         push=$(curl -k -s --data-binary @${PUSH_TMP_PATH} "https://oapi.dingtalk.com/robot/send?access_token=${DDBOT_TOKEN}")
+        push=$(curl 'https://oapi.dingtalk.com/robot/send?access_token=${DDBOT_TOKEN}' \
+               -H 'Content-Type: application/json' \
+               -d '{
+                     "msgtype": "markdown",
+                     "markdown": {
+                         "title":${TITLE},
+                         "text": ${log_text}
+                     },
+                        "isAtAll": false
+                    }
+                 }
+                  }')
         push_code=$(echo ${push} | jq -r ".errcode" 2>&1)
         if [ "${push_code}" -eq 0 ]; then
             echo -e "【钉钉机器人推送结果】: 成功\n"
