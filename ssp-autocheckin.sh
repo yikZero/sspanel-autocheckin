@@ -2,10 +2,10 @@
 PATH="/usr/local/bin:/usr/bin:/bin"
 
 #版本、初始化变量
-VERSION="2.1.9"
+VERSION="2.2.0"
 ENV_PATH="$(dirname $0)/.env"
 IS_MACOS=$(uname | grep 'Darwin' | wc -l)
-IS_DISPALY_CONTEXT=1
+IS_DISPLAY_CONTEXT=1
 TITLE="SSPanel Auto Checkin v${VERSION} 签到通知"
 users_array=""
 log_text=""
@@ -21,8 +21,8 @@ fi
 users_array=($(echo ${USERS} | tr ';' ' '))
 
 # 是否显示上下文 默认是
-if [ "${DISPALY_CONTEXT}" == "0" ]; then
-    IS_DISPALY_CONTEXT=0
+if [ "${DISPLAY_CONTEXT}" == "0" ]; then
+    IS_DISPLAY_CONTEXT=0
 fi
 
 #检查账户权限
@@ -90,7 +90,7 @@ send_message() {
     fi
 
     # Server 酱 Turbo 通知
-if [ "${PUSH_TURBO_KEY}" ]; then
+    if [ "${PUSH_TURBO_KEY}" ]; then
         echo -e "text=${TITLE}&desp=${log_text}" >${PUSH_TMP_PATH}
         push=$(curl -k -s -X POST --data-binary @${PUSH_TMP_PATH} "https://sctapi.ftqq.com/${PUSH_TURBO_KEY}.send")
         ###
@@ -139,6 +139,25 @@ if [ "${PUSH_TURBO_KEY}" ]; then
             done
         else
             echo -e "【Server 酱Turbo 队列结果】: 失败\n"
+        fi
+    fi
+
+    # 钉钉群机器人通知
+    if [ "${DDBOT_TOKEN}" ]; then
+        push=$(curl "https://oapi.dingtalk.com/robot/send?access_token=${DDBOT_TOKEN}" \
+        -H 'Content-Type: application/json' \
+        -d "{
+            \"msgtype\": \"markdown\",
+            \"markdown\": {
+                \"title\":\"${TITLE}\",
+                \"text\": \"${log_text}\"
+            }
+        }")
+        push_code=$(echo ${push} | jq -r ".errcode" 2>&1)
+        if [ "${push_code}" -eq 0 ]; then
+            echo -e "【钉钉机器人推送结果】: 成功\n"
+        else
+            echo -e "【钉钉机器人推送结果】: 失败\n"
         fi
     fi
 
@@ -266,7 +285,7 @@ ssp_autochenkin() {
 
             result_log_text="${result_log_text}---------------------------------------\n\n"
 
-            if [ ${IS_DISPALY_CONTEXT} == 1 ]; then
+            if [ ${IS_DISPLAY_CONTEXT} == 1 ]; then
                 echo -e ${result_log_text}
             fi
 
