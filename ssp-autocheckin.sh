@@ -215,12 +215,12 @@ ssp_autochenkin() {
 
             login=$(curl "${domain}/auth/login" -d "email=${username}&passwd=${passwd}&code=" -c ${COOKIE_PATH} -L -k -s)
 
-            start_time=$(date '+%Y-%m-%d %H:%M:%S')
+            start_time=$(date '+%m-%d %H:%M')
             login_code=$(echo ${login} | jq -r '.ret' 2>&1)
             login_status=$(echo ${login} | jq -r '.msg' 2>&1)
 
             # login_log_text="\n#### 用户${user_count}:\n\n"
-            login_log_text="\n#### 请过目今天的签到情况:\n\n"
+            login_log_text="\n##### 请过目今天的签到情况:\n\n"
             # login_log_text="${login_log_text}> - 签到站点: ${domain_text}\n"
             # login_log_text="${login_log_text}> - 签到用户: ${username_text}\n"
             login_log_text="${login_log_text}> - 签到时间: **${start_time}**\n"
