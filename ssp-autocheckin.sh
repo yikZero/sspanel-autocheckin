@@ -272,7 +272,7 @@ ssp_autochenkin() {
 
                 if [ "${checkin_status}" ]; then
                     # checkin_log_text="> - 签到状态: **${checkin_status}**\n"
-                    checkin_log_text="机场签到：**${checkin_status}**\n"
+                    checkin_log_text="机场签到：\n  **${checkin_status}**\n"
                 else
                     checkin_log_text="机场签到失败, 请检查是否存在签到验证码**\n"
                     # checkin_log_text="> - 签到状态: **签到失败, 请检查是否存在签到验证码**\n"
