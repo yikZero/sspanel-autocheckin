@@ -219,7 +219,7 @@ ssp_autochenkin() {
             login_code=$(echo ${login} | jq -r '.ret' 2>&1)
             login_status=$(echo ${login} | jq -r '.msg' 2>&1)
 
-            login_log_text="\n##### 用户${user_count}:\n\n"
+            login_log_text="\n#### 用户${user_count}:\n\n"
             login_log_text="${login_log_text}> - 签到站点: ${domain_text}\n"
             login_log_text="${login_log_text}> - 签到用户: ${username_text}\n"
             login_log_text="${login_log_text}> - 签到时间: **${start_time}**\n"
@@ -272,15 +272,15 @@ ssp_autochenkin() {
                 checkin_status=$(echo ${checkin} | jq -r ".msg" 2>&1)
 
                 if [ "${checkin_status}" ]; then
-                    checkin_log_text="> - 签到状态: ${checkin_status}\n"
+                    checkin_log_text="> - 签到状态: **${checkin_status}**\n"
                 else
-                    checkin_log_text="> - 签到状态: 签到失败, 请检查是否存在签到验证码\n"
+                    checkin_log_text="> - 签到状态: **签到失败, 请检查是否存在签到验证码**\n"
                 fi
 
                 result_log_text="${login_log_text}${checkin_log_text}${user_log_text}\n\n"
             else
 
-                result_log_text="${login_log_text}> - 签到状态: 登录失败, 请检查配置\n\n"
+                result_log_text="${login_log_text}> - 签到状态: **登录失败, 请检查配置**\n\n"
             fi
 
             result_log_text="${result_log_text}---------------------------------------\n\n"
@@ -289,7 +289,7 @@ ssp_autochenkin() {
                 echo -e ${result_log_text}
             fi
 
-            log_text="#### 【${TITLE}】/n${log_text}${result_log_text}"
+            log_text="${log_text}${result_log_text}"
 
             user_count=$(expr ${user_count} + 1)
         done
