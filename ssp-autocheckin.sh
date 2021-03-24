@@ -220,10 +220,10 @@ ssp_autochenkin() {
             login_status=$(echo ${login} | jq -r '.msg' 2>&1)
 
             # login_log_text="\n#### 用户${user_count}:\n\n"
-            login_log_text="\n##### 请过目今天的签到情况:\n\n"
+            # login_log_text="\n##### 请过目今天的签到情况:\n\n"
             # login_log_text="${login_log_text}> - 签到站点: ${domain_text}\n"
             # login_log_text="${login_log_text}> - 签到用户: ${username_text}\n"
-            login_log_text="${login_log_text}> - 签到时间: **${start_time}**\n"
+            # login_log_text="${login_log_text}> - 签到时间: **${start_time}**\n"
 
             if [ "${login_code}" == "1" ]; then
                 userinfo=$(curl -k -s -G -b ${COOKIE_PATH} "${domain}/getuserinfo")
@@ -259,30 +259,32 @@ ssp_autochenkin() {
                 fi
 
                 # user_log_text="> - 用户等级: **VIP${clasx}**\n"
-                user_log_text="> - 用户余额: **${money} CNY**\n"
+                # user_log_text="> - 用户余额: **${money} CNY**\n"
                 # user_log_text="${user_log_text}> - 用户限速: **${node_speedlimit} Mbps**\n"
                 # user_log_text="${user_log_text}> - 总流量: **${transfer_enable_text}**\n"
-                user_log_text="${user_log_text}> - 剩余流量: **${transfer_used_text}**\n"
+                # user_log_text="${user_log_text}> - 剩余流量: **${transfer_used_text}**\n"
                 # user_log_text="${user_log_text}> - 已使用流量: **${last_day_t_text}**\n"
-                user_log_text="${user_log_text}> - 等级过期时间: **${class_expire}**\n"
+                # user_log_text="${user_log_text}> - 等级过期时间: **${class_expire}**\n"
 
                 checkin=$(curl -k -s -d "" -b ${COOKIE_PATH} "${domain}/user/checkin")
                 chechin_code=$(echo ${checkin} | jq -r ".ret" 2>&1)
                 checkin_status=$(echo ${checkin} | jq -r ".msg" 2>&1)
 
                 if [ "${checkin_status}" ]; then
-                    checkin_log_text="> - 签到状态: **${checkin_status}**\n"
+                    # checkin_log_text="> - 签到状态: **${checkin_status}**\n"
+                    checkin_log_text="**${checkin_status}**\n"
                 else
-                    checkin_log_text="> - 签到状态: **签到失败, 请检查是否存在签到验证码**\n"
+                    checkin_log_text="机场签到失败, 请检查是否存在签到验证码**\n"
+                    # checkin_log_text="> - 签到状态: **签到失败, 请检查是否存在签到验证码**\n"
                 fi
 
                 result_log_text="${login_log_text}${checkin_log_text}${user_log_text}\n\n"
             else
 
-                result_log_text="${login_log_text}> - 签到状态: **登录失败, 请检查配置**\n\n"
+                result_log_text="${login_log_text}机场登录失败, 请检查配置**\n\n"
             fi
 
-            result_log_text="${result_log_text}---------------------------------------\n\n"
+            # result_log_text="${result_log_text}---------------------------------------\n\n"
 
             if [ ${IS_DISPLAY_CONTEXT} == 1 ]; then
                 echo -e ${result_log_text}
