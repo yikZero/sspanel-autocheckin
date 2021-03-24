@@ -31,7 +31,7 @@
 - 适用于使用 SSPanel 用户管理面板搭建的网站，网站页面底部会有 `Powered by SSPANEL` 字段
 - 支持使用配置文件读取账户信息，支持多机场多用户签到
 - 支持一日多次签到
-- 支持推送签到信息到 QQ、微信和 Telegram
+- 支持推送签到信息到 QQ、微信、钉钉和 Telegram
 - 若有 bug 请到 [Issues](https://github.com/isecret/sspanel-autocheckin/issues/new) 反馈
 
 ## 升级警告
@@ -52,7 +52,7 @@ Fork 该仓库，进入仓库后点击 `Settings`，右侧栏点击 `Secrets`，
 | `PUSH_KEY`           | `SCxxxxxxxxxxxxx`                              | 微信推送 ，填写自己申请[Server 酱](http://sc.ftqq.com/?c=code)的`SC KEY`        | 可选                   |
 | `PUSH_TURBO_KEY`           | `xxxxxxxxxxxxxxx`                              | 企业微信推送 ，填写自己申请[Server 酱 Turbo](https://sct.ftqq.com/sendkey)的`SendKey`        | 可选                   |
 | `QMSG_KEY`           | `e6fxxxxxxxxxxxx`                              | QQ 推送 ，填写自己申请[Qmsg 酱](https://qmsg.zendee.cn/me.html#/)的 `QMSG_KEY`  | 可选                   |
-| `DDBOT_TOKEN`           | `a1bxxxxxxxxxxxx`                              | 钉钉机器人推送 ，填写申请[自定义机器人接入](https://qmsg.zendee.cn/me.html#/) 申请的回调地址中 `access_token` 的值  | 可选                   |
+| `DDBOT_TOKEN`           | `a1bxxxxxxxxxxxx`                              | 钉钉机器人推送 ，填写申请[自定义机器人接入](https://www.dingtalk.com/qidian/help-detail-20781541.html) 申请的回调地址中 `access_token` 的值  | 可选                   |
 | `TELEGRAMBOT_TOKEN`  | `123456:ABC-DEF1234xxx-xxx123ew11`             | TGBot 推送，填写自己向[@BotFather](https://t.me/BotFather) 申请的 Bot Token     | 可选，和下面的一起使用 |
 | `TELEGRAMBOT_CHATID` | `11xxxxxx03`                                   | TGBot 推送，填写[@getuseridbot](https://t.me/getuseridbot)私聊获取到的纯数字 ID | 可选，和上面一起使用   |
 | `DISPLAY_CONTEXT`    | `1`                                            | 任务执行时是否显示详细信息，`1` 显示 `0` 关闭，默认值 `1`                       | 可选                   |
