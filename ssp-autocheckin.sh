@@ -288,7 +288,7 @@ ssp_autochenkin() {
                 result_log_text="${login_log_text}- 【签到状态】: 登录失败, 请检查配置\n\n"
             fi
 
-            result_log_text="${result_log_text}---------------------------------------\n\n"
+#             result_log_text="${result_log_text}---------------------------------------\n\n"
 
             if [ ${IS_DISPLAY_CONTEXT} == 1 ]; then
                 echo -e ${result_log_text}
