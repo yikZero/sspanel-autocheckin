@@ -6,7 +6,8 @@ VERSION="2.2.0"
 ENV_PATH="$(dirname $0)/.env"
 IS_MACOS=$(uname | grep 'Darwin' | wc -l)
 IS_DISPLAY_CONTEXT=1
-TITLE="SSPanel Auto Checkin v${VERSION} 签到通知"
+# TITLE="SSPanel Auto Checkin v${VERSION} 签到通知"
+TITLE="机场签到通知"
 users_array=""
 log_text=""
 COOKIE_PATH="./.ss-autocheckin.cook"
@@ -294,7 +295,7 @@ ssp_autochenkin() {
                 echo -e ${result_log_text}
             fi
 
-            log_text="${log_text}${result_log_text}"
+            log_text="${checkin_log_text}"
 
             user_count=$(expr ${user_count} + 1)
         done
