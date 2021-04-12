@@ -298,11 +298,7 @@ ssp_autochenkin() {
 
             user_count=$(expr ${user_count} + 1)
         done
-
-        #自己企业微信bot推送
-        if [ "${WECHAT_PHP}" ]; then
-            curl -i -X GET ${WECHAT_PHP}${log_text}
-        fi
+        
         send_message
 
         rm -rf ${COOKIE_PATH}
@@ -315,3 +311,7 @@ ssp_autochenkin() {
 check_sys
 check_jq_installed_status
 ssp_autochenkin
+#自己企业微信bot推送
+if [ "${WECHAT_PHP}" ]; then
+    curl -i -X GET ${WECHAT_PHP}${checkin_status}
+fi
