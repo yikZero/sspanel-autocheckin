@@ -163,7 +163,7 @@ send_message() {
     fi
     #自己企业微信bot推送
     if [ "${WECHAT_PHP}" ]; then
-        curl -i -X GET ${WECHAT_PHP}${checkin_log_text}
+        curl -i -X GET ${WECHAT_PHP}${log_text}
     fi
     # Qmsg 酱通知
     if [ "${QMSG_KEY}" ]; then
