@@ -313,5 +313,5 @@ check_jq_installed_status
 ssp_autochenkin
 #自己企业微信bot推送
 if [ "${WECHAT_PHP}" ]; then
-    curl -i -X GET ${WECHAT_PHP}<br>${checkin_status}+"&type=textcard&title=【机场】签到通知"
+    curl -i -X GET "${WECHAT_PHP}<br>${checkin_status}&type=textcard&title=【机场】签到通知"
 fi
