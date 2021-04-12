@@ -161,10 +161,7 @@ send_message() {
             echo -e "【钉钉机器人推送结果】: 失败\n"
         fi
     fi
-    #自己企业微信bot推送
-    if [ "${WECHAT_PHP}" ]; then
-        curl -i -X GET ${WECHAT_PHP}${log_text}
-    fi
+
     # Qmsg 酱通知
     if [ "${QMSG_KEY}" ]; then
         result_qmsg_log_text="${TITLE}${log_text}"
@@ -302,6 +299,10 @@ ssp_autochenkin() {
             user_count=$(expr ${user_count} + 1)
         done
 
+        #自己企业微信bot推送
+        if [ "${WECHAT_PHP}" ]; then
+            curl -i -X GET ${WECHAT_PHP}${log_text}
+        fi
         send_message
 
         rm -rf ${COOKIE_PATH}
